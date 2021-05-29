@@ -50,3 +50,5 @@ Route::redirect('/campaign2', '/campaign1');
 Route::fallback(function () {
     echo ('Rota inexistente. Clique <a href="' . route('site.index') . '">aqui</a> para voltar para a home');
 });
+
+Route::get('/test/{p1}/{p2}', [\App\Http\Controllers\TestController::class, 'main'])->name('site.test');
