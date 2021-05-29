@@ -13,24 +13,40 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\MainController::class, 'main']);
+Route::get('/', [\App\Http\Controllers\MainController::class, 'main'])->name('site.index');
 
-Route::get('/about-us', [\App\Http\Controllers\AboutUsController::class, 'main']);
+Route::get('/about-us', [\App\Http\Controllers\AboutUsController::class, 'main'])->name('site.about-us');
 
-Route::get('/contact-us', [\App\Http\Controllers\ContactController::class, 'main']);
+Route::get('/contact-us', [\App\Http\Controllers\ContactController::class, 'main'])->name('site.contact-us');
 
 Route::get('/login', function () {
     return 'Login';
+})->name('site.login');
+
+Route::prefix('/app')->group(function () {
+    Route::get('/providers', function () {
+        return 'Providers';
+    })->name('site.app.providers');
+
+    Route::get('/clients', function () {
+        return 'Clients';
+    })->name('site.app.clients');
+
+    Route::get('/products', function () {
+        return 'Products';
+    })->name('site.app.products');
 });
 
-Route::get('/providers', function () {
-    return 'Providers';
-});
+Route::get('/campaign1', function () {
+    echo ('campaign1');
+})->name('site.campaign1');
 
-Route::get('/clients', function () {
-    return 'Clients';
-});
+Route::get('/campaign3', function () {
+    return redirect()->route('site.campaign1');
+})->name('site.campaign3');
 
-Route::get('/products', function () {
-    return 'Products';
+Route::redirect('/campaign2', '/campaign1');
+
+Route::fallback(function () {
+    echo ('Rota inexistente. Clique <a href="' . route('site.index') . '">aqui</a> para voltar para a home');
 });
