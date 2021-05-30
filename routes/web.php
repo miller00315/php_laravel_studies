@@ -19,14 +19,14 @@ Route::get('/about-us', [\App\Http\Controllers\AboutUsController::class, 'main']
 
 Route::get('/contact-us', [\App\Http\Controllers\ContactController::class, 'main'])->name('site.contact-us');
 
+Route::post('/contact-us', [\App\Http\Controllers\ContactController::class, 'main'])->name('site.contact-us');
+
 Route::get('/login', function () {
     return 'Login';
 })->name('site.login');
 
 Route::prefix('/app')->group(function () {
-    Route::get('/providers', function () {
-        return 'Providers';
-    })->name('site.app.providers');
+    Route::get('/providers', [\App\Http\Controllers\ProvidersController::class, 'index'])->name('site.app.providers');
 
     Route::get('/clients', function () {
         return 'Clients';
